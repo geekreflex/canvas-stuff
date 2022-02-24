@@ -19,7 +19,7 @@ const View = () => {
   return (
     <>
       <Heading>
-        <h1>Demo Filtar App</h1>
+        <h1>Filtar Demo App</h1>
       </Heading>
       <ViewWrap>
         <Container>
