@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Konva from 'konva';
-import { Stage, Layer } from 'react-konva';
+import { Stage, Layer, Image as ImageDef } from 'react-konva';
 import { v1 as uuidv1 } from 'uuid';
 import Rectangle from '../components/shapes/Rectangle';
 import TextElem from '../components/shapes/TextElem';
@@ -23,8 +23,11 @@ const EditorView = () => {
   const [textSize, setTextSize] = useState();
   const [textValue, setTextValue] = useState();
 
+  const [defImage, setDefImage] = useState();
+
   const stageEl = React.createRef();
   const layerEl = React.createRef();
+  const defImgEl = React.createRef();
   const fileUploadEl = React.createRef();
   const previewEl = React.createRef();
 
@@ -331,6 +334,7 @@ const EditorView = () => {
                   />
                 );
               })}
+              <Image ref={defImgEl} />
             </Layer>
           </Stage>
         </StageWrap>
