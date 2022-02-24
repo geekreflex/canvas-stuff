@@ -18,6 +18,9 @@ const View = () => {
 
   return (
     <>
+      <Heading>
+        <h1>Demo Filtar App</h1>
+      </Heading>
       <ViewWrap>
         <Container>
           <ViewMain>
@@ -38,7 +41,7 @@ const View = () => {
 };
 
 const ViewWrap = styled.div`
-  margin-top: 100px;
+  margin-top: 50px;
 `;
 const ViewMain = styled.div`
   display: flex;
@@ -55,6 +58,12 @@ const LeftView = styled.div`
 const RightView = styled.div`
   width: 65%;
   display: flex;
+`;
+
+const Heading = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 30px 20px;
 `;
 
 export default View;
