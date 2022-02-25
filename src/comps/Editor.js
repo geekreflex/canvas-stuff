@@ -1,4 +1,4 @@
-import React, { createRef, useEffect } from 'react';
+import React, { createRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Layer, Stage } from 'react-konva';
 import TextElement from './TextElement';
@@ -10,9 +10,11 @@ import {
   updateItemData,
   setPreviewImage,
   saveChangesToStorage,
+  setLoadingFrame,
 } from '../features/editorSlice';
 import Controls from './Controls';
 import BGFrameImage from './BGFrameImage';
+import Loading from './Loading';
 
 const Editor = () => {
   const dispatch = useDispatch();
@@ -78,6 +80,10 @@ const Editor = () => {
     dispatch(saveChangesToStorage());
   };
 
+  useEffect(() => {
+    dispatch(setLoadingFrame(false));
+  }, [frameUrl]);
+
   return (
     <EditorWrap>
       <EditorInner>
@@ -114,6 +120,7 @@ const Editor = () => {
               ))}
             </Layer>
           </Stage>
+          <Loading />
         </EditorMain>
       </EditorInner>
       <Controls />
@@ -131,11 +138,11 @@ const EditorInner = styled.div`
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-  /* display: flex; */
 `;
 const EditorMain = styled.div`
   background-color: white;
   border-radius: 10px;
+  position: relative;
 `;
 
 export default Editor;

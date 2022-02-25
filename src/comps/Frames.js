@@ -1,22 +1,30 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { setBGFrame } from '../features/editorSlice';
+import { setBGFrame, setLoadingFrame } from '../features/editorSlice';
 
 const Frames = () => {
   const dispatch = useDispatch();
+  const { frameUrl } = useSelector((state) => state.editor);
   const frames = [
     { name: 'Frame One', url: '' },
-    { name: 'Frame Two', url: require('../assets/elements/frame1.png') },
+    { name: 'Frame Two', url: require('../assets/elements/frame4.png') },
     { name: 'Frame Three' },
     { name: 'Frame Four' },
   ];
+
+  const handleFrameClick = (url) => {
+    if (frameUrl === null || url !== frameUrl) {
+      dispatch(setBGFrame(url));
+      dispatch(setLoadingFrame(true));
+    }
+  };
 
   return (
     <FrameListWrap>
       <FrameList>
         {frames.map((frame, i) => (
-          <Frame onClick={() => dispatch(setBGFrame(frame.url))} key={i}>
+          <Frame onClick={() => handleFrameClick(frame.url)} key={i}>
             {frame.name}
           </Frame>
         ))}

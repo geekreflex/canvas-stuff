@@ -12,6 +12,7 @@ const initialState = {
   fontFamily: null,
   previewImage: null,
   frameUrl: null,
+  loadingFrame: false,
 };
 
 export const editorSlice = createSlice({
@@ -117,6 +118,7 @@ export const editorSlice = createSlice({
       if (storedState) {
         state.texts = storedState.texts;
         state.shapes = storedState.shapes;
+        state.frameUrl = storedState.frameUrl;
       } else {
         state = initialState;
       }
@@ -132,6 +134,9 @@ export const editorSlice = createSlice({
     },
     setBGFrame(state, action) {
       state.frameUrl = action.payload;
+    },
+    setLoadingFrame(state, action) {
+      state.loadingFrame = action.payload;
     },
   },
 });
@@ -157,5 +162,6 @@ export const {
   setFontSize,
   setBGFrame,
   clearSavedFromStorage,
+  setLoadingFrame,
 } = editorSlice.actions;
 export default editorSlice.reducer;

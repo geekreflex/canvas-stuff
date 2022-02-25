@@ -23,10 +23,15 @@ const UnfinishedModal = ({ modal, setModal }) => {
     <ModalWrap visible={modal}>
       <Overlay />
       <ModalMain>
-        <h2>Found unfinished filtar</h2>
+        <Text>
+          <h2>We found an unfinished filtar from your previous visit</h2>
+          <p>Would you like to continue from where you left off?</p>
+        </Text>
         <ActionBtn>
-          <button onClick={handleFromStorage}>Load</button>
-          <button onClick={handleDicardStorage}>Discard</button>
+          <button onClick={handleDicardStorage}>No, Start over</button>
+          <button id="continue" onClick={handleFromStorage}>
+            Yes, Continue
+          </button>
         </ActionBtn>
       </ModalMain>
     </ModalWrap>
@@ -49,7 +54,7 @@ const ModalWrap = styled.div`
 const ModalMain = styled.div`
   position: relative;
   background-color: white;
-  width: 400px;
+  width: 500px;
   max-height: 400px;
   max-width: 100%;
   padding: 30px;
@@ -59,12 +64,6 @@ const ModalMain = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  h2 {
-    text-align: center;
-    font-weight: 400;
-    margin-bottom: 30px;
-  }
 `;
 const Overlay = styled.div`
   position: absolute;
@@ -73,8 +72,33 @@ const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
+const Text = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 30px;
+  h2 {
+    text-align: center;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #888;
+  }
+`;
 const ActionBtn = styled.div`
   display: flex;
+
+  #continue {
+    background-color: #333;
+    color: #fff;
+
+    :hover {
+      background-color: #000;
+    }
+  }
 
   button {
     padding: 10px 20px;
