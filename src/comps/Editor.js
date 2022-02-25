@@ -87,43 +87,45 @@ const Editor = () => {
 
   return (
     <EditorWrap>
-      <EditorInner>
-        <EditorMain>
-          <Stage
-            ref={stageEl}
-            width={300}
-            height={550}
-            onMouseDown={(e) => {
-              handleStageClick(e);
-            }}
-          >
-            <Layer>
-              <BGFrameImage
-                imageUrl={frameUrl}
-                onMouseDown={() => {
-                  dispatch(deSelectItem());
-                }}
-              />
-              {texts.map((text, i) => (
-                <TextElement
-                  key={i}
-                  shapeProps={text}
-                  isSelected={text.id === selectedId}
-                  onSelect={() => {
-                    handleSelectedItem(text);
-                  }}
-                  onChange={(newAttrs) => {
-                    const payload = { newAttrs, i };
-                    handleTextChange(payload);
-                    saveChanges();
+      <EditorOuter>
+        <EditorInner>
+          <EditorMain>
+            <Stage
+              ref={stageEl}
+              width={300}
+              height={550}
+              onMouseDown={(e) => {
+                handleStageClick(e);
+              }}
+            >
+              <Layer>
+                <BGFrameImage
+                  imageUrl={frameUrl}
+                  onMouseDown={() => {
+                    dispatch(deSelectItem());
                   }}
                 />
-              ))}
-            </Layer>
-          </Stage>
-          <Loading />
-        </EditorMain>
-      </EditorInner>
+                {texts.map((text, i) => (
+                  <TextElement
+                    key={i}
+                    shapeProps={text}
+                    isSelected={text.id === selectedId}
+                    onSelect={() => {
+                      handleSelectedItem(text);
+                    }}
+                    onChange={(newAttrs) => {
+                      const payload = { newAttrs, i };
+                      handleTextChange(payload);
+                      saveChanges();
+                    }}
+                  />
+                ))}
+              </Layer>
+            </Stage>
+            <Loading />
+          </EditorMain>
+        </EditorInner>
+      </EditorOuter>
       <Controls />
     </EditorWrap>
   );
@@ -133,6 +135,21 @@ const EditorWrap = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+const EditorOuter = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const EditorInner = styled.div`
   background-color: #e5e5e5;

@@ -87,6 +87,14 @@ const FontList = styled.div`
   max-height: 300px;
   overflow-y: auto;
   padding: 30px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 412px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const Font = styled.div`
@@ -97,6 +105,7 @@ const Font = styled.div`
   cursor: pointer;
   height: 50px;
   font-size: 20px;
+  text-align: center;
 
   :hover {
     transform: scale(1.1);

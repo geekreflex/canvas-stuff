@@ -90,8 +90,18 @@ export const fontstyles = [
   {
     label: '',
     name: 'Sweet Unicorn',
-    webStyles: { fontFamily: 'Sweet Unicorn' },
-    canvasStyles: { fontFamily: 'Sweet Unicorn' },
+    webStyles: {
+      fontFamily: 'Sweet Unicorn',
+      textShadow: '5px 5px 5px rgba(242,177,34, 1)',
+    },
+    canvasStyles: {
+      fontFamily: 'Sweet Unicorn',
+      shadowColor: 'rgb(242,177,34)',
+      shadowBlur: 5,
+      shadowOffsetX: 5,
+      shadowOffsetY: 5,
+      shadowOpacity: 1,
+    },
   },
   {
     label: '',

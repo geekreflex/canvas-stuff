@@ -46,6 +46,10 @@ const ViewWrap = styled.div`
 const ViewMain = styled.div`
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
 `;
 const Container = styled.div`
   max-width: 1200px;
@@ -54,10 +58,19 @@ const Container = styled.div`
 `;
 const LeftView = styled.div`
   width: 32%;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+    margin-bottom: 50px;
+  }
 `;
 const RightView = styled.div`
   width: 65%;
   display: flex;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
 `;
 
 const Heading = styled.div`

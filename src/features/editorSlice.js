@@ -24,10 +24,9 @@ export const editorSlice = createSlice({
 
       const textNode = {
         text: 'Click to edit',
-        x: 20,
-        y: 20,
+        x: 80,
+        y: 80,
         width: 150,
-        verticalAlign: 'middle',
         fontSize: 25,
         fontFamily: 'Sans serif',
         fill: 'black',

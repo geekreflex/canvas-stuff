@@ -16,6 +16,7 @@ const TextElement = ({ shapeProps, isSelected, onSelect, onChange }) => {
     <>
       <Text
         onClick={onSelect}
+        onTouchStart={onSelect}
         ref={textRef}
         {...shapeProps}
         draggable
