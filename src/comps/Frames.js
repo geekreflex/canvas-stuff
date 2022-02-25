@@ -11,10 +11,10 @@ const Frames = () => {
   const dispatch = useDispatch();
   const { frameUrl } = useSelector((state) => state.editor);
   const frames = [
-    { name: 'Frame One', url: '' },
-    { name: 'Frame Two', url: require('../assets/elements/frame4.png') },
-    { name: 'Frame Three' },
-    { name: 'Frame Four' },
+    { name: 'Start From Scratch', url: '' },
+    { name: 'Flower Frame', url: require('../assets/elements/frame4.png') },
+    // { name: 'Frame Three' },
+    // { name: 'Frame Four' },
   ];
 
   const handleFrameClick = (url) => {
@@ -28,7 +28,11 @@ const Frames = () => {
     <FrameListWrap>
       <FrameList>
         {frames.map((frame, i) => (
-          <Frame onClick={() => handleFrameClick(frame.url)} key={i}>
+          <Frame
+            className={frameUrl === frame.url ? 'active' : ''}
+            onClick={() => handleFrameClick(frame.url)}
+            key={i}
+          >
             {frame.name}
           </Frame>
         ))}
@@ -42,6 +46,11 @@ const FrameList = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
+
+  .active {
+    border: 1px solid #777;
+    background-color: #ccc;
+  }
 `;
 const Frame = styled.div`
   background-color: #e5e5e5;
@@ -54,6 +63,9 @@ const Frame = styled.div`
   transition: all 300ms;
   border-radius: 5px;
   border: 1px solid transparent;
+  text-align: center;
+  font-size: 14px;
+
   :hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     transform: scale(1.05);

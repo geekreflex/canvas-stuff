@@ -114,7 +114,6 @@ export const editorSlice = createSlice({
         ? JSON.parse(localStorage.getItem('editor-state'))
         : null;
 
-      console.log(storedState);
       if (storedState) {
         state.texts = storedState.texts;
         state.shapes = storedState.shapes;
