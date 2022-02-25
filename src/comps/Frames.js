@@ -1,7 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { setBGFrame, setLoadingFrame } from '../features/editorSlice';
+import {
+  saveChangesToStorage,
+  setBGFrame,
+  setLoadingFrame,
+} from '../features/editorSlice';
 
 const Frames = () => {
   const dispatch = useDispatch();

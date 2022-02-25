@@ -82,6 +82,7 @@ const Editor = () => {
 
   useEffect(() => {
     dispatch(setLoadingFrame(false));
+    saveChanges();
   }, [frameUrl]);
 
   return (

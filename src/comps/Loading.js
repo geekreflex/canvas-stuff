@@ -21,6 +21,7 @@ const LoadingWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 300ms;
   visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
   opacity: ${(props) => (props.visible ? '1' : '0')};
 

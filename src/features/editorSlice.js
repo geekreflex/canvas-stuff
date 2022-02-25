@@ -128,7 +128,7 @@ export const editorSlice = createSlice({
     },
     saveChangesToStorage(state) {
       const allState = state;
-      if (state.texts.length >= 1) {
+      if (state.texts.length >= 1 || state.frameUrl) {
         localStorage.setItem('editor-state', JSON.stringify(allState));
       }
     },
