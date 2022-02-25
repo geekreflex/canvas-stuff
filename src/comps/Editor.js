@@ -94,6 +94,9 @@ const Editor = () => {
               ref={stageEl}
               width={300}
               height={550}
+              onTouchStart={(e) => {
+                handleStageClick(e);
+              }}
               onMouseDown={(e) => {
                 handleStageClick(e);
               }}
@@ -152,15 +155,33 @@ const EditorOuter = styled.div`
   }
 `;
 const EditorInner = styled.div`
+  max-width: 100%;
   background-color: #e5e5e5;
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+
+  @media (max-width: 520px) {
+    padding: 15px;
+  }
 `;
 const EditorMain = styled.div`
   background-color: white;
   border-radius: 10px;
   position: relative;
+  text-align: center;
+
+  @media (max-width: 418px) {
+    display: flex;
+    justify-content: flex-start;
+    width: 250px;
+    height: 450px !important;
+    canvas {
+      width: 250px !important;
+      height: 450px !important;
+      max-width: 100% !important;
+    }
+  }
 `;
 
 export default Editor;

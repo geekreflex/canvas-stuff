@@ -11,10 +11,28 @@ const Frames = () => {
   const dispatch = useDispatch();
   const { frameUrl } = useSelector((state) => state.editor);
   const frames = [
-    { name: 'Start From Scratch', url: '' },
+    { name: 'Start From Scratch', url: 'scratch' },
     { name: 'Flower Frame', url: require('../assets/elements/frame4.png') },
-    // { name: 'Frame Three' },
-    // { name: 'Frame Four' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
+    { name: 'Empty Frame' },
   ];
 
   const handleFrameClick = (url) => {
@@ -29,6 +47,7 @@ const Frames = () => {
       <FrameList>
         {frames.map((frame, i) => (
           <Frame
+            withUrl={frame.url}
             className={frameUrl === frame.url ? 'active' : ''}
             onClick={() => handleFrameClick(frame.url)}
             key={i}
@@ -41,7 +60,11 @@ const Frames = () => {
   );
 };
 
-const FrameListWrap = styled.div``;
+const FrameListWrap = styled.div`
+  height: 600px;
+  overflow-y: auto;
+  padding: 20px 5px;
+`;
 const FrameList = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -51,10 +74,14 @@ const FrameList = styled.div`
     border: 1px solid #777;
     background-color: #ccc;
   }
+
+  @media (max-width: 470px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 const Frame = styled.div`
   background-color: #e5e5e5;
-  height: 200px;
+  height: 170px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,6 +92,9 @@ const Frame = styled.div`
   border: 1px solid transparent;
   text-align: center;
   font-size: 14px;
+  padding: 0 20px;
+  opacity: ${(props) => (props.withUrl ? '1' : '0.5')};
+  pointer-events: ${(props) => (props.withUrl ? '' : 'none')};
 
   :hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);

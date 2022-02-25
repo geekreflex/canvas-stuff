@@ -38,6 +38,7 @@ const ModalMain = styled.div`
   position: relative;
   background-color: white;
   width: 600px;
+  min-width: 300px;
   max-height: 700px;
   max-width: 100%;
   margin-top: 50px;
@@ -67,6 +68,14 @@ const PreviewImgWrap = styled.div`
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  width: 300px;
+  max-width: 100%;
+
+  @media (max-width: 520px) {
+    width: 250px;
+    min-width: 200px;
+    padding: 15px;
+  }
 `;
 const PreviewImg = styled.div`
   background-color: #fff;
@@ -78,7 +87,7 @@ const PreviewImg = styled.div`
   overflow: hidden;
 
   img {
-    width: 250px;
+    width: 100%;
     z-index: 2;
   }
 `;

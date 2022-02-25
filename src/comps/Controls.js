@@ -173,6 +173,7 @@ const ControlWrap = styled.div`
 `;
 const ControlMain = styled.div``;
 const Text = styled.div`
+  width: 70%;
   margin-bottom: 30px;
   h2 {
     margin-bottom: 10px;
@@ -180,6 +181,17 @@ const Text = styled.div`
 
   p {
     font-size: 16px;
+  }
+
+  @media (max-width: 520px) {
+    margin-bottom: 20px;
+    h2 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 14px;
+    }
   }
 `;
 

@@ -6,7 +6,13 @@ const BGFrameImage = ({ imageUrl, onMouseDown }) => {
   const [image] = useImage(imageUrl);
 
   return (
-    <Image width={300} height={550} image={image} onMouseDown={onMouseDown} />
+    <Image
+      width={300}
+      height={550}
+      image={image}
+      onTouchStart={onMouseDown}
+      onMouseDown={onMouseDown}
+    />
   );
 };
 

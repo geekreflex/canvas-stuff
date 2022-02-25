@@ -85,7 +85,18 @@ const Text = styled.div`
   }
 
   p {
-    color: #888;
+    color: #555;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 14px;
+    }
   }
 `;
 const ActionBtn = styled.div`
@@ -113,6 +124,14 @@ const ActionBtn = styled.div`
 
     :hover {
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  @media (max-width: 512px) {
+    flex-direction: column;
+
+    button {
+      margin: 10px 0;
     }
   }
 `;

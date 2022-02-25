@@ -47,8 +47,9 @@ const ViewMain = styled.div`
   display: flex;
   justify-content: space-between;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1024px) {
     flex-direction: column;
+    align-items: center;
   }
 `;
 const Container = styled.div`
@@ -58,8 +59,10 @@ const Container = styled.div`
 `;
 const LeftView = styled.div`
   width: 32%;
+  display: flex;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1025px) {
+    justify-content: center;
     width: 100%;
     margin-bottom: 50px;
   }
@@ -68,7 +71,8 @@ const RightView = styled.div`
   width: 65%;
   display: flex;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1024px) {
+    justify-content: center;
     width: 100%;
   }
 `;
