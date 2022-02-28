@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  texts: [],
+  elements: [],
   shapes: [],
   selectedId: null,
   fontsModal: false,
@@ -13,16 +13,30 @@ const initialState = {
   previewImage: null,
   frameUrl: null,
   loadingFrame: false,
+  selectedType: null,
 };
 
 export const editorSlice = createSlice({
   name: 'editor',
   initialState,
   reducers: {
+    addImage(state, action) {
+      const { content, id } = action.payload;
+
+      const imageData = {
+        type: 'image',
+        content,
+        id,
+      };
+
+      const data = state.elements.concat([imageData]);
+      state.elements = data;
+    },
     addText(state, action) {
       const style = action.payload;
 
       const textNode = {
+        type: 'text',
         text: 'Click to edit',
         x: 80,
         y: 80,
@@ -30,30 +44,31 @@ export const editorSlice = createSlice({
         fontSize: 25,
         fontFamily: 'Sans serif',
         fill: 'black',
-        id: `text${state.texts.length + 1}`,
+        id: `text${state.elements.length + 1}`,
         ...style,
       };
-      const items = state.texts.concat([textNode]);
-      state.texts = items;
-      const shs = state.shapes.concat([`text${state.texts.length + 1}`]);
+      const data = state.elements.concat([textNode]);
+      state.elements = data;
+      const shs = state.shapes.concat([`text${state.elements.length + 1}`]);
       state.shapes = shs;
     },
     moveToTop(state) {
-      const items = state.texts.slice();
+      const items = state.elements.slice();
       const item = items.find((s) => s.id === state.selectedId);
       const index = items.indexOf(item);
       items.splice(index, 1);
       items.splice(index + 1, 0, item);
-      state.texts = items;
+      state.elements = items;
     },
 
     moveToBottom(state) {
-      const items = state.texts.slice();
+      const items = state.elements.slice();
       const item = items.find((s) => s.id === state.selectedId);
       const index = items.indexOf(item);
       items.splice(index, 1);
       items.splice(index - 1, 0, item);
-      state.texts = items;
+      console.log(item);
+      state.elements = items;
     },
 
     setSelectedItem(state, action) {
@@ -63,14 +78,16 @@ export const editorSlice = createSlice({
       state.fontSize = item.fontSize;
       state.textValue = item.text;
       state.fontFamily = item.fontFamily;
+      state.selectedType = item.type;
     },
 
     setItemChange(state, action) {
       const newAttrs = action.payload.newAttrs;
       const i = action.payload.i;
-      const txts = state.texts.slice();
-      txts[i] = newAttrs;
-      state.texts = txts;
+      console.log(newAttrs);
+      const items = state.elements.slice();
+      items[i] = newAttrs;
+      state.elements = items;
     },
 
     deSelectItem(state) {
@@ -95,11 +112,11 @@ export const editorSlice = createSlice({
       state.fontSize = action.payload;
     },
     updateItemData(state, action) {
-      state.texts = action.payload;
+      state.elements = action.payload;
     },
     removeItem(state) {
-      const items = state.texts;
-      const item = items.find((s) => s.id === state.selectedId);
+      const items = state.elements;
+      const item = items.find((item) => item.id === state.selectedId);
       const index = items.indexOf(item);
       items.splice(index, 1);
       state.texts = items;
@@ -114,7 +131,7 @@ export const editorSlice = createSlice({
         : null;
 
       if (storedState) {
-        state.texts = storedState.texts;
+        state.elements = storedState.elements;
         state.shapes = storedState.shapes;
         state.frameUrl = storedState.frameUrl;
       } else {
@@ -126,7 +143,7 @@ export const editorSlice = createSlice({
     },
     saveChangesToStorage(state) {
       const allState = state;
-      if (state.texts.length >= 1 || state.frameUrl) {
+      if (state.elements.length >= 1 || state.frameUrl) {
         localStorage.setItem('editor-state', JSON.stringify(allState));
       }
     },
@@ -161,5 +178,6 @@ export const {
   setBGFrame,
   clearSavedFromStorage,
   setLoadingFrame,
+  addImage,
 } = editorSlice.actions;
 export default editorSlice.reducer;

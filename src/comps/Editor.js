@@ -15,11 +15,12 @@ import {
 import Controls from './Controls';
 import BGFrameImage from './BGFrameImage';
 import Loading from './Loading';
+import ImageElement from './ImageElement';
 
 const Editor = () => {
   const dispatch = useDispatch();
   const {
-    texts,
+    elements,
     selectedId,
     textValue,
     textColor,
@@ -30,11 +31,11 @@ const Editor = () => {
   } = useSelector((state) => state.editor);
   const stageEl = createRef();
 
-  const handleSelectedItem = (text) => {
-    dispatch(setSelectedItem(text));
+  const handleSelectedItem = (item) => {
+    dispatch(setSelectedItem(item));
   };
 
-  const handleTextChange = (payload) => {
+  const handleItemChange = (payload) => {
     dispatch(setItemChange(payload));
   };
 
@@ -48,8 +49,9 @@ const Editor = () => {
   useEffect(() => {
     saveChanges();
     let id = selectedId;
-    let items = texts.slice();
-    let item = items.find((i) => i.id === id);
+    let items = elements.slice();
+    console.log(items);
+    let item = items.find((item) => item.id === id);
     let index = items.indexOf(item);
     let newItem = {
       ...item,
@@ -108,21 +110,44 @@ const Editor = () => {
                     dispatch(deSelectItem());
                   }}
                 />
-                {texts.map((text, i) => (
-                  <TextElement
-                    key={i}
-                    shapeProps={text}
-                    isSelected={text.id === selectedId}
-                    onSelect={() => {
-                      handleSelectedItem(text);
-                    }}
-                    onChange={(newAttrs) => {
-                      const payload = { newAttrs, i };
-                      handleTextChange(payload);
-                      saveChanges();
-                    }}
-                  />
-                ))}
+                {elements.map((element, i) => {
+                  if (element.type === 'text') {
+                    return (
+                      <TextElement
+                        key={i}
+                        shapeProps={element}
+                        isSelected={element.id === selectedId}
+                        onSelect={() => {
+                          handleSelectedItem(element);
+                        }}
+                        onChange={(newAttrs) => {
+                          const payload = { newAttrs, i };
+                          handleItemChange(payload);
+                          saveChanges();
+                        }}
+                      />
+                    );
+                  }
+
+                  if (element.type === 'image') {
+                    return (
+                      <ImageElement
+                        key={i}
+                        imageUrl={element.content}
+                        isSelected={element.id === selectedId}
+                        shapeProps={element}
+                        onSelect={() => {
+                          handleSelectedItem(element);
+                        }}
+                        onChange={(newAttrs) => {
+                          const payload = { newAttrs, i };
+                          handleItemChange(payload);
+                          saveChanges();
+                        }}
+                      />
+                    );
+                  }
+                })}
               </Layer>
             </Stage>
             <Loading />

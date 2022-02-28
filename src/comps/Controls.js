@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { v1 as uuidv1 } from 'uuid';
 import {
   moveToBottom,
   moveToTop,
@@ -10,20 +11,29 @@ import {
   removeItem,
   togglePreviewModal,
   setFontSize,
+  addImage,
 } from '../features/editorSlice';
 import {
   IoCloseCircleOutline,
   IoEnterOutline,
   IoExitOutline,
   IoEyeOutline,
+  IoImageOutline,
   IoTextOutline,
 } from 'react-icons/io5';
 import FontList from './FontList';
 
 const Controls = () => {
   const dispatch = useDispatch();
-  const { selectedId, textValue, fontFamily, textColor, fontSize } =
-    useSelector((state) => state.editor);
+  const fileUploadEl = createRef();
+  const {
+    selectedId,
+    textValue,
+    fontFamily,
+    textColor,
+    fontSize,
+    selectedType,
+  } = useSelector((state) => state.editor);
 
   const handleShowFontsModal = () => {
     dispatch(toggleFontsModal(true));
@@ -39,6 +49,31 @@ const Controls = () => {
 
   const handleFontSizeChange = (size) => {
     dispatch(setFontSize(size));
+  };
+
+  const handleUploadImage = () => {
+    fileUploadEl.current.click();
+  };
+
+  const handleFileChange = (e) => {
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.addEventListener(
+      'load',
+      () => {
+        const id = uuidv1();
+        const data = {
+          content: reader.result,
+          id,
+        };
+
+        dispatch(addImage(data));
+      },
+      false
+    );
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -64,6 +99,20 @@ const Controls = () => {
           </i>
           <span>Preview</span>
         </button>
+
+        <button onClick={handleUploadImage}>
+          <i>
+            <IoImageOutline />
+          </i>
+          <span>Upload</span>
+        </button>
+
+        <input
+          style={{ display: 'none' }}
+          type="file"
+          ref={fileUploadEl}
+          onChange={handleFileChange}
+        />
       </ActionBtn>
 
       {selectedId && (
@@ -71,32 +120,38 @@ const Controls = () => {
           <Text>
             <h2>Edit</h2>
           </Text>
-          <FontList />
-          <InputWrap fontFamily={fontFamily}>
-            <label>Change text</label>
-            <textarea
-              value={textValue}
-              onChange={(e) => handleTextValueChange(e.target.value)}
-            />
-          </InputWrap>
-          <InputWrap>
-            <label>Font size</label>
-            <input
-              value={fontSize}
-              onChange={(e) => handleFontSizeChange(e.target.value)}
-              type="number"
-            />
-          </InputWrap>
+          {selectedType === 'text' && (
+            <>
+              <FontList />
+              <InputWrap fontFamily={fontFamily}>
+                <label>Change text</label>
+                <textarea
+                  value={textValue}
+                  onChange={(e) => handleTextValueChange(e.target.value)}
+                />
+              </InputWrap>
+              <InputWrap>
+                <label>Font size</label>
+                <input
+                  value={fontSize}
+                  onChange={(e) => handleFontSizeChange(e.target.value)}
+                  type="number"
+                />
+              </InputWrap>
+            </>
+          )}
           <EditBtns>
-            <button htmlFor="fontColor">
-              <input
-                type="color"
-                id="fontColor"
-                value={textColor}
-                onChange={(e) => handleTextColorChange(e.target.value)}
-              />
-              <span>Font Color</span>
-            </button>
+            {selectedType === 'text' && (
+              <button htmlFor="fontColor">
+                <input
+                  type="color"
+                  id="fontColor"
+                  value={textColor}
+                  onChange={(e) => handleTextColorChange(e.target.value)}
+                />
+                <span>Font Color</span>
+              </button>
+            )}
             <button onClick={() => dispatch(moveToTop())}>
               <i>
                 <IoEnterOutline />
