@@ -92,19 +92,17 @@ const Controls = () => {
           </i>
           <span>Add Text</span>
         </button>
-
-        <button onClick={() => dispatch(togglePreviewModal(true))}>
-          <i>
-            <IoEyeOutline />
-          </i>
-          <span>Preview</span>
-        </button>
-
         <button onClick={handleUploadImage}>
           <i>
             <IoImageOutline />
           </i>
           <span>Upload</span>
+        </button>
+        <button onClick={() => dispatch(togglePreviewModal(true))}>
+          <i>
+            <IoEyeOutline />
+          </i>
+          <span>Preview</span>
         </button>
 
         <input
