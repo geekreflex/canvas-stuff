@@ -50,7 +50,6 @@ const Editor = () => {
     saveChanges();
     let id = selectedId;
     let items = elements.slice();
-    console.log(items);
     let item = items.find((item) => item.id === id);
     let index = items.indexOf(item);
     let newItem = {

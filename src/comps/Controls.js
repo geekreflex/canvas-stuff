@@ -62,12 +62,37 @@ const Controls = () => {
       'load',
       () => {
         const id = uuidv1();
-        const data = {
-          content: reader.result,
-          id,
-        };
 
-        dispatch(addImage(data));
+        let image = new Image();
+        image.src = reader.result;
+        image.onload = function () {
+          let height = this.height;
+          let width = this.width;
+          let maxWidth = 200;
+          let maxHeight = 150;
+          let aspectW = width / maxWidth;
+          let aspectH = height / maxHeight;
+
+          if (aspectW > 1 || aspectH > 1) {
+            if (aspectW > aspectH) {
+              const data = {
+                content: reader.result,
+                id,
+                width: maxWidth,
+                height: height / aspectW,
+              };
+              dispatch(addImage(data));
+            } else {
+              const data = {
+                content: reader.result,
+                id,
+                width: width / aspectH,
+                height: maxHeight,
+              };
+              dispatch(addImage(data));
+            }
+          }
+        };
       },
       false
     );

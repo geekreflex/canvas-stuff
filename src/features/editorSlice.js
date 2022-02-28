@@ -21,12 +21,16 @@ export const editorSlice = createSlice({
   initialState,
   reducers: {
     addImage(state, action) {
-      const { content, id } = action.payload;
+      const { content, id, width, height } = action.payload;
+
+      console.log(width, height);
 
       const imageData = {
         type: 'image',
         content,
         id,
+        width,
+        height,
       };
 
       const data = state.elements.concat([imageData]);
@@ -67,7 +71,6 @@ export const editorSlice = createSlice({
       const index = items.indexOf(item);
       items.splice(index, 1);
       items.splice(index - 1, 0, item);
-      console.log(item);
       state.elements = items;
     },
 
@@ -84,7 +87,6 @@ export const editorSlice = createSlice({
     setItemChange(state, action) {
       const newAttrs = action.payload.newAttrs;
       const i = action.payload.i;
-      console.log(newAttrs);
       const items = state.elements.slice();
       items[i] = newAttrs;
       state.elements = items;
